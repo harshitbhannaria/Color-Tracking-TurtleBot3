@@ -26,8 +26,6 @@ class ColorTracker(Node):
         self.prev_error = 0.0
         self.integral = 0.0
         self.error_threshold = 10.0 # Deadzone
-        
-        self.get_logger().info("--- Anti-Accumulation PID Node Started ---")
 
     def scan_callback(self, msg):
         front_ranges = [r for r in msg.ranges[0:20] + msg.ranges[-20:] if np.isfinite(r)]
@@ -61,7 +59,7 @@ class ColorTracker(Node):
                         # Anti-Windup: Limit how much the integral can "push"
                         self.integral = max(min(self.integral, 50.0), -50.0)
                     else:
-                        self.integral = 0.0 # Clear error when we are "close enough"
+                        self.integral = 0.0 # Clear error when we are close enough
 
                     # 2. DERIVATIVE
                     derivative = current_error - self.prev_error
@@ -77,13 +75,11 @@ class ColorTracker(Node):
                     # 4. LINEAR MOVEMENT
                     if abs(current_error) < 40:
                         if self.min_dist > 0.6:
-                            # Smooth approach speed
                             twist.linear.x = min(0.15, (self.min_dist - 0.5) * 0.4)
                         else:
                             twist.linear.x = 0.0
-                            self.get_logger().info('Target reached accurately.')
                     else:
-                        twist.linear.x = 0.02 # Crawl while turning
+                        twist.linear.x = 0.02 # Crawling simulatneuosly while turning
                 else:
                     self.search_mode(twist)
             else:
