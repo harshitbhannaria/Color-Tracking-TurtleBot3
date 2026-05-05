@@ -1,9 +1,9 @@
 # TurtleBot3 PID Color Tracking (ROS 2 Jazzy)
 
-This project implements an autonomous color-tracking robot using **ROS 2 Jazzy**, **Gazebo Harmonic**, and **OpenCV**. The robot uses a PID controller to track a green sphere and LiDAR to maintain a safe stopping distance.
+This project implements an autonomous color-tracking robot using **ROS 2 Jazzy**, **Gazebo Classic(fortress)** , and **OpenCV**. The robot uses a PID controller to track a green sphere and LiDAR to maintain a safe stopping distance.
 
 ##  Features
-- **Centroid Tracking**: Uses Image Moments (85196cx = M_{10} / M_{00}85196) to find the target.
+- **Centroid Tracking**: Uses Image Moments  to find the target.
 - **PID Control**: Smooth navigation with anti-windup logic to prevent oscillations.
 - **Gazebo Integration**: Custom SDF world with a high-contrast green sphere.
 
@@ -26,6 +26,6 @@ The core idea was to create a "controlled experiment" environment. The SDF inclu
 
 ### Why not a standard world?
 Standard Gazebo worlds often contain many colors and complex lighting that can interfere with basic color tracking. By creating a custom SDF, I was able to:
-1. Validate the **PID controller** without environmental interference.
-2. Fine-tune the **HSV thresholding** values for the camera sensor.
-3. Verify the **LiDAR-based braking system** against a known geometric shape.
+Validate the **PID controller** without environmental interference.
+Fine-tune the **HSV thresholding** values for the camera sensor.
+Verify the **LiDAR-based braking system** against a known geometric shape.
