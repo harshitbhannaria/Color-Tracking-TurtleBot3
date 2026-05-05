@@ -1,4 +1,39 @@
 # TurtleBot3 PID Color Tracking (ROS 2 Jazzy)
+# Autonomous Color Tracking with TurtleBot3 (ROS 2 Jazzy)
+
+This project demonstrates a closed-loop control system where a TurtleBot3 Waffle detects, tracks, and approaches a green sphere in a simulated environment. It utilizes **OpenCV** for vision processing and a **PID Controller** for precise navigation.
+
+## 🚀 Features
+* **PID Control System:** Implemented Proportional-Derivative logic with Integral Anti-Windup to eliminate oscillations.
+* **Computer Vision:** Real-time HSV thresholding and Centroid calculation using Image Moments.
+* **Sensor Fusion:** Combines Camera data for steering and LiDAR data for precision braking.
+* **Custom Environment:** A hand-coded `.sdf` world file optimized for high-contrast color detection.
+
+---
+
+## 🛠 Setup & Installation
+
+### 1. Prerequisites
+* **OS:** Ubuntu 24.04 (Noble)
+* **Middleware:** ROS 2 Jazzy Jalisco
+* **Simulator:** Gazebo Harmonic
+* **Dependencies:** `ros-jazzy-ros-gz`, `python3-opencv`, `cv_bridge`
+
+### 2. Workspace Setup
+```bash
+# Create and navigate to your workspace
+mkdir -p ~/turtlebot3_ws/src
+cd ~/turtlebot3_ws/src
+
+# Clone this repository
+git clone [https://github.com/YOUR_USERNAME/Color-Tracking-TurtleBot3.git](https://github.com/YOUR_USERNAME/Color-Tracking-TurtleBot3.git)
+
+# Build the package
+cd ~/turtlebot3_ws
+colcon build --packages-select color_nav_project
+source install/setup.bash
+```
+
 
 This project implements an autonomous color-tracking robot using **ROS 2 Jazzy**, **Gazebo Classic(fortress)** , and **OpenCV**. The robot uses a PID controller to track a green sphere and LiDAR to maintain a safe stopping distance.
 
