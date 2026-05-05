@@ -19,7 +19,7 @@ class ColorTracker(Node):
         
         # PID Constants
         self.kp = 0.002
-        self.ki = 0.0001  # Very small to prevent "Windup"
+        self.ki = 0.0001  
         self.kd = 0.001
         
         # Error History
