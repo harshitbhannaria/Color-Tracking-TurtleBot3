@@ -1,17 +1,8 @@
-# TurtleBot3 PID Color Tracking (ROS 2 Jazzy)
 # Autonomous Color Tracking with TurtleBot3 (ROS 2 Jazzy)
 
 This project demonstrates a closed-loop control system where a TurtleBot3 Waffle detects, tracks, and approaches a green sphere in a simulated environment. It utilizes **OpenCV** for vision processing and a **PID Controller** for precise navigation.
 
-## 🚀 Features
-* **PID Control System:** Implemented Proportional-Derivative logic with Integral Anti-Windup to eliminate oscillations.
-* **Computer Vision:** Real-time HSV thresholding and Centroid calculation using Image Moments.
-* **Sensor Fusion:** Combines Camera data for steering and LiDAR data for precision braking.
-* **Custom Environment:** A hand-coded `.sdf` world file optimized for high-contrast color detection.
-
----
-
-## 🛠 Setup & Installation
+## Setup & Installation
 
 ### 1. Prerequisites
 * **OS:** Ubuntu 24.04 (Noble)
@@ -33,8 +24,6 @@ cd ~/turtlebot3_ws
 colcon build --packages-select color_nav_project
 source install/setup.bash
 ```
-
-
 This project implements an autonomous color-tracking robot using **ROS 2 Jazzy**, **Gazebo Classic(fortress)** , and **OpenCV**. The robot uses a PID controller to track a green sphere and LiDAR to maintain a safe stopping distance.
 
 ##  Features
@@ -59,7 +48,7 @@ The core idea was to create a "controlled experiment" environment. The SDF inclu
 * **Ground Plane Calibration:** A standard gray plane to minimize background noise during the color filtering process.
 * **Dynamic Physics:** The sphere is defined as a static model to ensure the robot doesn't physically "push" its target away, allowing for a precise approach and stop.
 
-### Why not a standard world?
+### Why not a pre-built world of gzsim?
 Standard Gazebo worlds often contain many colors and complex lighting that can interfere with basic color tracking. By creating a custom SDF, I was able to:
 Validate the **PID controller** without environmental interference.
 Fine-tune the **HSV thresholding** values for the camera sensor.
