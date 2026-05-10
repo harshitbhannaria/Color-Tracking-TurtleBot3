@@ -17,12 +17,10 @@ class ColorTracker(Node):
         self.bridge = CvBridge()
         self.min_dist = 10.0
         
-        # PID Constants
         self.kp = 0.002
         self.ki = 0.0001  
         self.kd = 0.001
         
-        # Error History
         self.prev_error = 0.0
         self.integral = 0.0
         self.error_threshold = 10.0 # Deadzone
@@ -53,33 +51,28 @@ class ColorTracker(Node):
                     cx = int(M['m10'] / M['m00'])
                     current_error = float(cx - (frame.shape[1] / 2))
 
-                    # 1. INTEGRAL (with clamping to prevent accumulation)
                     if abs(current_error) > self.error_threshold:
                         self.integral += current_error
-                        # Anti-Windup: Limit how much the integral can "push"
                         self.integral = max(min(self.integral, 50.0), -50.0)
                     else:
                         self.integral = 0.0 # Clear error when we are close enough
 
-                    # 2. DERIVATIVE
                     derivative = current_error - self.prev_error
 
-                    # 3. PID FORMULA
                     angular_vel = (self.kp * current_error) + (self.ki * self.integral) + (self.kd * derivative)
                     
-                    # Clamp the output to prevent violent spinning
                     twist.angular.z = -max(min(angular_vel, 0.8), -0.8)
                     
                     self.prev_error = current_error
 
-                    # 4. LINEAR MOVEMENT
+                
                     if abs(current_error) < 40:
                         if self.min_dist > 0.6:
                             twist.linear.x = min(0.15, (self.min_dist - 0.5) * 0.4)
                         else:
                             twist.linear.x = 0.0
                     else:
-                        twist.linear.x = 0.02 # Crawling simulatneuosly while turning
+                        twist.linear.x = 0.02 
                 else:
                     self.search_mode(twist)
             else:
@@ -91,7 +84,7 @@ class ColorTracker(Node):
             self.get_logger().error(f"Error: {e}")
 
     def search_mode(self, twist):
-        self.integral = 0.0 # Reset accumulation when target lost
+        self.integral = 0.0  
         self.prev_error = 0.0
         twist.linear.x = 0.0
         twist.angular.z = 0.4
